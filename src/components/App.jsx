@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Note from "./Note";
+import NewNote from "./NewNote";
 import notes from "../notes";
 
 function createNote(note){
@@ -13,10 +14,12 @@ function createNote(note){
     );
 }
 function App() {
-    console.log(notes)
+    const [currentNotes, setCurrentNotes] = useState(notes);
+
     return (
         <div>
             <Header />
+            <NewNote />
             {notes.map(createNote)}
             <Footer />
         </div>

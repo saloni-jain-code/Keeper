@@ -16,11 +16,20 @@ function createNote(note){
 function App() {
     const [currentNotes, setCurrentNotes] = useState(notes);
 
+    function addNewNote(newNote){
+        console.log("Adding new note: ", newNote);
+        // currentNotes.push(newNote);
+        // setCurrentNotes(currentNotes);
+        setCurrentNotes((prevNotes) => {
+            return [...prevNotes, newNote];
+        });    
+    }
+
     return (
         <div>
             <Header />
-            <NewNote />
-            {notes.map(createNote)}
+            <NewNote onAdd={addNewNote}/>
+            {currentNotes.map(createNote)}
             <Footer />
         </div>
     );

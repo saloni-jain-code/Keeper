@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-// import notes from "../notes";
 
 function NewNote(props) {
     const [note, setNote] = useState({
-        //id: noteCount + 1,
         title: "",
         content: ""
     });
@@ -11,17 +9,14 @@ function NewNote(props) {
     function handleChange(event) {
         const newValue = event.target.value;
         const name = event.target.name;
-        //console.log(newValue);
         setNote((prevValue) => {
             if (name === "title") {
                 return {
-                    // id: prevValue.id,
                     title: newValue,
                     content: prevValue.content
                 }
             } else if (name === "content") {
                 return {
-                    // id: prevValue.id,
                     title: prevValue.title,
                     content: newValue
                 }
@@ -30,14 +25,8 @@ function NewNote(props) {
     }
 
     function handleAddNote(event) {
-        // create a new note
-        // add the note to the notes array
-        // update the notes state
-        // clear the input fields
-        //notes.push(note);    
         props.onAdd(note)
         setNote({
-            // id: noteCount + 1,
             title: "",
             content: ""
         });
@@ -53,11 +42,12 @@ function NewNote(props) {
                     value={note.title}
                     placeholder="Title"
                 />
-                <input
+                <textarea
                     onChange={handleChange}
                     name="content"
                     value={note.content}
                     placeholder="Take a note..."
+                    rows="3"
                 />
                 <button>Add</button>
             </form>

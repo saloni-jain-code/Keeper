@@ -5,31 +5,40 @@ import Note from "./Note";
 import NewNote from "./NewNote";
 import notes from "../notes";
 
-function createNote(note){
-    return (
-        <Note
-            title={note.title}
-            content={note.content}
-        />
-    );
-}
+
 function App() {
     const [currentNotes, setCurrentNotes] = useState(notes);
 
     function addNewNote(newNote){
-        console.log("Adding new note: ", newNote);
-        // currentNotes.push(newNote);
-        // setCurrentNotes(currentNotes);
         setCurrentNotes((prevNotes) => {
             return [...prevNotes, newNote];
         });    
     }
 
+    function deleteNote(noteID){ 
+        setCurrentNotes((prevNotes) => {
+            return prevNotes.filter((noteItem, index) => index !== noteID);
+        });
+    }
+
+    function createNote(note, index){
+        return (
+            <Note
+                key={index}
+                id={index}
+                title={note.title}
+                content={note.content}
+                onDelete={deleteNote}
+            />
+        );
+    }
+
     return (
         <div>
             <Header />
-            <NewNote onAdd={addNewNote}/>
-            {currentNotes.map(createNote)}
+            <NewNote 
+            onAdd={addNewNote}/>
+            {currentNotes.map((note, index) => createNote(note, index))}
             <Footer />
         </div>
     );
